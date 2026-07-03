@@ -1,0 +1,53 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+df = pd.read_csv("dataset/titanic.csv")
+
+print("Dataset Loaded Successfully!")
+
+# Survival Count
+plt.figure(figsize=(6,4))
+sns.countplot(x="Survived", data=df)
+
+plt.title("Survival Count")
+plt.xlabel("Survived (0 = No, 1 = Yes)")
+plt.ylabel("Number of Passengers")
+
+plt.savefig("survival_count.png")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.countplot(x="Sex", data=df)
+plt.title("Gender Distribution")
+plt.xlabel("Gender")
+plt.ylabel("Count")
+plt.savefig("gender_distribution.png")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.countplot(x="Pclass", data=df)
+plt.title("Passenger Class Distribution")
+plt.xlabel("Passenger Class")
+plt.ylabel("Count")
+plt.savefig("passenger_class.png")
+plt.show()
+
+plt.figure(figsize=(8,5))
+sns.histplot(df["Age"].dropna(), bins=30)
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+plt.savefig("age_distribution.png")
+plt.show()
+
+plt.figure(figsize=(8,6))
+
+numeric_df = df.select_dtypes(include=["number"])
+
+sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm")
+
+plt.title("Correlation Heatmap")
+plt.savefig("correlation_heatmap.png")
+plt.show()
